@@ -1,0 +1,6 @@
+{
+  "name": "Servi",
+  "description": "On-demand service booking platform for doctors, plumbers, electricians, and more with real-time tracking and integrated payments.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

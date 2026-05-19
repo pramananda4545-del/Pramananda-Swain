@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Information about the application user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["customer", "provider", "admin"] },
+        "loyaltyPoints": { "type": "number" },
+        "referralCode": { "type": "string" },
+        "referredBy": { "type": "string" },
+        "subscriptionActive": { "type": "boolean" },
+        "subscriptionType": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Provider": {
+      "title": "Provider",
+      "description": "Service provider details",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["doctor", "plumber", "electrician", "salon", "cleaner"] },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" },
+            "address": { "type": "string" }
+          }
+        },
+        "availability": { "type": "boolean" },
+        "earnings": { "type": "number" },
+        "isVerified": { "type": "boolean" }
+      },
+      "required": ["userId", "name", "category"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Appointment booking details",
+      "type": "object",
+      "properties": {
+        "customerId": { "type": "string" },
+        "providerId": { "type": "string" },
+        "category": { "type": "string" },
+        "scheduledAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "scheduled", "ongoing", "completed", "cancelled"] },
+        "amount": { "type": "number" },
+        "paymentStatus": { "type": "string", "enum": ["unpaid", "paid"] },
+        "paymentMethod": { "type": "string" },
+        "trackingLocation": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "rating": { "type": "number" },
+        "review": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerId", "providerId", "scheduledAt", "status", "amount"]
+    },
+    "GiftCard": {
+      "title": "GiftCard",
+      "description": "Prepaid gift cards",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "amount": { "type": "number" },
+        "isUsed": { "type": "boolean" },
+        "usedBy": { "type": "string" }
+      },
+      "required": ["code", "amount", "isUsed"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Stores user profiles"
+    },
+    "/providers/{providerId}": {
+      "schema": "Provider",
+      "description": "Stores services offered by providers"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Stores appointment records"
+    },
+    "/giftCards/{code}": {
+      "schema": "GiftCard",
+      "description": "Stores gift card registry"
+    }
+  }
+}
